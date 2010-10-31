@@ -24,7 +24,7 @@
 // be sure that this file not accessed directly
 if (!defined('INDEX_AUTH')) {
     die("can not access this file directly");
-} elseif (INDEX_AUTH != 1) { 
+} elseif (INDEX_AUTH != 1) {
     die("can not access this file directly");
 }
 
@@ -201,7 +201,7 @@ class biblio_list extends biblio_list_model
 				continue;
 			} else {
 				if ($_query['b'] == '*') { $_b = ''; } else { $_b = $_query['b']; }
-				$_q = @$this->obj_db->escape_string($_query['q']);
+				$_q = trim($_query['q']);
 				$_q = isset($_query['is_phrase'])?'"'.$_q.'"':$_q;
 				$_boolean = '';
 			}

@@ -1,4 +1,3 @@
-#!/Applications/XAMPP/xamppfiles/bin/php
 <?php
 /**
  * Copyright (C) 2010  Wardiyono (wynerst@gmail.com), Arie Nugraha (dicarve@yahoo.com)
@@ -20,6 +19,11 @@
  */
 
 /* Biblio Index Command Line Updater */
+
+// key to authenticate
+if (!defined('INDEX_AUTH')) {
+    define('INDEX_AUTH', '1');
+}
 
 // main system configuration
 require 'sysconfig.inc.php';
