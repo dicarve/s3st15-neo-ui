@@ -1,6 +1,6 @@
 /* GENERAL FONT DEFINITION */
 body {
-    font-family: tahoma, verdana, sans, 'Dejavu Sans';
+    font-family: Helvetica, Calibri, tahoma, verdana, sans-serif;
     font-size: 11px;
     line-height: 170%;
     color: #003380;
@@ -24,42 +24,84 @@ a {
     background: #fff url(media/header.jpg) no-repeat bottom right;
 }
 
-#mainMenu {
-    width: 100%;
-    height: 28px;
-    background: url(media/bar_fill_menu.png) repeat-x bottom left;
-    font-weight: bold;
-    padding-top: 7px;
-}
-
-#menuList {
+#main-menu {
     display: inline;
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-#menuList li {
+#main-menu li {
     display: inline;
     margin: 0;
     padding: 0;
 }
 
-#menuList a.menu,a.menu:hover,a.menuCurrent {
-    padding: 11px;
-    font-size: 11px;
+#main-menu a.menu,#main-menu a.menu:hover {
+    display: block;
+    padding: 10px;
+    padding-left: 30px;
+    font-size: 110%;
     font-weight: bold;
-    color: #fff;
     text-decoration: none;
+    color: #fff;
+    background-repeat: no-repeat;
+    background-position: center left;
 }
 
-#menuList a.menu:hover,a.menuCurrent {
-    background: url(media/tri.png) no-repeat bottom center;
+#main-menu a.menu:hover,#main-menu a.curr-module {
+    color: #003380;
+    background-color: #fff;
+}
+
+#main-menu .home {
+    background: url(media/menuicon/home.png);
+}
+
+#main-menu .opac {
+    background: url(media/menuicon/opac.png);
+}
+
+#main-menu .bibliography {
+    background: url(media/menuicon/biblio.png);
+}
+
+#main-menu .circulation {
+    background: url(media/menuicon/circ.png);
+}
+
+#main-menu .membership {
+    background: url(media/menuicon/membership.png);
+}
+
+#main-menu .system {
+    background: url(media/menuicon/system.png);
+}
+
+#main-menu .master_file {
+    background: url(media/menuicon/masterfile.png);
+}
+
+#main-menu .reporting {
+    background: url(media/menuicon/report.png);
+}
+
+#main-menu .stock_take {
+    background: url(media/menuicon/sstake.png);
+}
+
+#main-menu .serial_control {
+    background: url(media/menuicon/serial_control.png);
+}
+
+#main-menu .logout {
+    color: #f00;
+    background: url(media/menuicon/logout.png);
 }
 
 #sidepan {
-    width: 210px;
-    background: #ccc;
+    width: 200px;
+    background: #003380;
 }
 
 #mainContent {
@@ -136,14 +178,35 @@ a {
     cursor: s-resize;
 }
 
-.subMenuHeader {
+.submenu {
+    margin: 0;
+    padding: 0;
+    display: none;
+    background: #ccc;
+}
+
+.submenu li a {
+    margin-left: 17px;
+    display: block;
+    padding: 5px;
+    padding-left: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    background: url(media/submenu_img.png) no-repeat center left;
+}
+
+.submenu li a:hover, .submenu li a.current {
+    color: #555;
+    background: url(media/submenu_img2.png) no-repeat center left;
+}
+
+.submenu .submenu-head span {
+    display: block;
+    padding: 5px;
+    margin-left: 10px;
     font-weight: bold;
     font-size: 14px;
-    color: #fff;
-    background: url(media/section_bar_fill.png) no-repeat top left;
-    padding-top: 9px;
-    padding-left: 37px;
-    height: 31px;
+    color: #555;
 }
 
 .heading {
@@ -270,29 +333,6 @@ iframe {
 
 .alterCell2 {
     background-color: #fff;
-}
-
-/* module submenu hyperlink specific */
-.subMenuItem, .subMenuItem:hover, .curModuleLink, .subMenuItem2, .subMenuItem2:hover {
-    display: block;
-    padding: 5px;
-    padding-left: 20px;
-    margin: 0;
-    margin-top: 3px;
-    margin-left: 10px;
-    font-weight: bold;
-    font-size: 97%;
-    text-decoration: none;
-    background-image: url(media/submenu_img.png);
-    background-position: left;
-    background-repeat: no-repeat;
-}
-
-.subMenuItem:hover, .curModuleLink, .subMenuItem2:hover {
-    background-image: url(media/submenu_img_hover.png);
-    background-position: left;
-    background-repeat: no-repeat;
-    color: #666666;
 }
 
 /* form element specific */

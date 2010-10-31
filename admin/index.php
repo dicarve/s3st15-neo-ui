@@ -54,9 +54,6 @@ if (isset($_GET['mod']) AND !empty($_GET['mod'])) {
 // read privileges
 $can_read = utility::havePrivilege($current_module, 'r');
 
-// submenu
-$sub_menu = $module->generateSubMenu(($current_module AND $can_read)?$current_module:'');
-
 // start the output buffering for main content
 ob_start();
 // info
@@ -78,7 +75,6 @@ $main_content = ob_get_clean();
 $template->assign('<!--PAGE_TITLE-->', $page_title);
 $template->assign('<!--CSS-->', $sysconf['admin_template']['css']);
 $template->assign('<!--MAIN_MENU-->', $main_menu);
-$template->assign('<!--SUB_MENU-->', $sub_menu);
 $template->assign('<!--INFO-->', $info);
 $template->assign('<!--LIBRARY_NAME-->', $sysconf['library_name']);
 $template->assign('<!--LIBRARY_SUBNAME-->', $sysconf['library_subname']);

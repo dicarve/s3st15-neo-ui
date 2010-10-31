@@ -24,7 +24,7 @@
 // be sure that this file not accessed directly
 if (!defined('INDEX_AUTH')) {
     die("can not access this file directly");
-} elseif (INDEX_AUTH != 1) { 
+} elseif (INDEX_AUTH != 1) {
     die("can not access this file directly");
 }
 
@@ -33,8 +33,6 @@ class module extends simbio
     private $modules_dir = 'modules';
     private $module_table = 'mst_module';
     public $module_list = array();
-    public $appended_first = '<li><a class="menu home" href="index.php">Home</a></li><li><a class="menu opac" href="../index.php" title="View OPAC in New Window" target="_blank">OPAC</a></li>';
-    public $appended_last = '<li><a class="menu logout" href="logout.php">LOGOUT</a></li>';
 
 
     /**
@@ -57,60 +55,76 @@ class module extends simbio
      */
     public function generateModuleMenu($obj_db)
     {
+        $dbs = &$obj_db;
         // get module data from database
         $_mods_q = $obj_db->query('SELECT * FROM '.$this->module_table);
+
+        // defaults
+        $this->module_list[] = array('name' => 'home', 'path' => 'index.php', 'desc' => 'Admin Management Console');
+        $this->module_list[] = array('name' => 'opac', 'path' => '../index.php', 'desc' => 'View OPAC in new window');
+
         while ($_mods_d = $_mods_q->fetch_assoc()) {
             $this->module_list[] = array('name' => $_mods_d['module_name'], 'path' => $_mods_d['module_path'], 'desc' => $_mods_d['module_desc']);
         }
 
+        $this->module_list[] = array('name' => 'logout', 'path' => 'logout.php', 'desc' => 'Logging out from Management Console');
+
         // create the HTML Hyperlinks
-        $_menu = '<ul id="menuList">';
-        $_menu .= $this->appended_first;
+        $_menu = '<ul id="main-menu">';
         // sort modules
         if ($this->module_list) {
             foreach ($this->module_list as $_module) {
                 $_formated_module_name = ucwords(str_replace('_', ' ', $_module['name']));
                 $_mod_dir = $_module['path'];
-                if (isset($_SESSION['priv'][$_module['path']]['r']) && $_SESSION['priv'][$_module['path']]['r'] && file_exists($this->modules_dir.$_mod_dir)) {
-                    $_menu .= '<li><a class="menu '.$_module['name'].( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?' menuCurrent':'' ).'" title="'.$_module['desc'].'" href="index.php?mod='.$_mod_dir.'">'.__($_formated_module_name).'</a></li>';
+                if (stripos($_mod_dir, '.php') !== false) {
+                    if ($_module['name'] == 'home') {
+                        $_menu .= '<li><a class="menu home curr-module notAJAX" title="'.$_module['desc'].'" href="'.$_module['path'].'">'.__($_formated_module_name).'</a>';
+                        // sub-module
+                        $_submenu_file = SENAYAN_BASE_DIR.'admin'.DIRECTORY_SEPARATOR.'default'.DIRECTORY_SEPARATOR.'submenu.php';
+                        include $_submenu_file;
+                        $_submenus = $menu;
+                        $_menu .= '<ul class="submenu '.$_module['name'].'-sub">';
+                            foreach ($_submenus as $_list) {
+                                if ($_list[0] == 'Header') {
+                                    $_menu .= '<li class="submenu-head"><span>'.$_list[1].'</span></li>';
+                                } else {
+                                    $_menu .= '<li><a class="submenu-item" '
+                                        .' href="'.$_list[1].'"'
+                                        .' title="'.( isset($_list[2])?$_list[2]:$_list[0] ).'" href="#">'.$_list[0].'</a></li>';
+                                }
+                            }
+                        $_menu .= '</ul>'."\n";
+                        unset($menu);
+                        $_menu .= '</li>';
+                    } else {
+                        $_menu .= '<li><a class="menu '.$_module['name'].' notAJAX" title="'.$_module['desc'].'" href="'.$_module['path'].'">'.__($_formated_module_name).'</a></li>';
+                    }
+                } else if (isset($_SESSION['priv'][$_module['path']]['r']) && $_SESSION['priv'][$_module['path']]['r'] && file_exists($this->modules_dir.$_mod_dir)) {
+                    $_menu .= '<li><a class="menu '.$_module['name'].( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?' curr-module':'' ).'" title="'.$_module['desc'].'" href="'.MODULES_WEB_ROOT_DIR.$_module['path'].'/index.php">'.__($_formated_module_name).'</a>';
+                    // sub-module
+                    $_submenu_file = MODULES_BASE_DIR.$_module['name'].DIRECTORY_SEPARATOR.'submenu.php';
+                    include $_submenu_file;
+                    $_submenus = $menu;
+                    $_menu .= '<ul class="submenu '.$_module['name'].'-sub">';
+                        foreach ($_submenus as $_list) {
+                            if ($_list[0] == 'Header') {
+                                $_menu .= '<li class="submenu-head"><span>'.$_list[1].'</span></li>';
+                            } else {
+                                $_menu .= '<li><a class="submenu-item" '
+                                    .' href="'.$_list[1].'"'
+                                    .' title="'.( isset($_list[2])?$_list[2]:$_list[0] ).'" href="#">'.$_list[0].'</a></li>';
+                            }
+                        }
+                    $_menu .= '</ul>'."\n";
+                    unset($menu);
+                    $_menu .= '</li>'."\n";
                 }
             }
         }
-        $_menu .= $this->appended_last;
+
         $_menu .= '</ul>';
 
         return $_menu;
-    }
-
-
-    /**
-     * Method to generate a list of module submenu
-     *
-     * @param   string  $str_module
-     * @return  string
-     */
-    public function generateSubMenu($str_module = '')
-    {
-        global $dbs;
-        $_submenu = '';
-        $_submenu_file = $this->modules_dir.$str_module.DIRECTORY_SEPARATOR.'submenu.php';
-        if (file_exists($_submenu_file)) {
-            include $_submenu_file;
-        } else {
-            include 'default/submenu.php';
-        }
-        // iterate menu array
-        foreach ($menu as $_list) {
-            if ($_list[0] == 'Header') {
-                $_submenu .= '<div class="subMenuHeader">'.$_list[1].'</div>';
-            } else {
-                $_submenu .= '<a class="subMenuItem" '
-                    .' href="'.$_list[1].'"'
-                    .' title="'.( isset($_list[2])?$_list[2]:$_list[0] ).'" href="#">'.$_list[0].'</a>';
-            }
-        }
-        $_submenu .= '&nbsp;';
-        return $_submenu;
     }
 }
 ?>

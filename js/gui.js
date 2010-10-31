@@ -394,15 +394,25 @@ var showHideTableRows = function(str_table_id, int_start_row, obj_button, str_hi
  * Register all events
  */
 $('document').ready(function() {
-    // register submenu event
-    $('.subMenuItem').click(function(evt) {
+    // register menu and submenu event
+    $('.menu,.submenu-item').not('.notAJAX').click(function(evt) {
         evt.preventDefault();
-        // remove other menu class
-        $('.subMenuItem').removeClass('curModuleLink');
-        var subMenu = $(this).addClass('curModuleLink');
-        var subMenuHREF = subMenu.attr('href');
-        $('#mainContent').simbioAJAX(subMenuHREF, {method: 'get'});
+        var menus = $(this)
+        if ($(this).hasClass('menu')) {
+            $('.submenu').hide();
+            $(this).next('.submenu').slideDown();
+            // remove other menu class
+            $('.menu').removeClass('curr-module');
+            menus.addClass('curr-module');
+        } else {
+            $('.submenu-item').removeClass('current');
+            menus.addClass('current');
+        }
+        var menuHREF = menus.attr('href');
+        $('#mainContent').simbioAJAX(menuHREF, {method: 'get'});
     });
+
+    $('.curr-module').next('.submenu').slideDown('slow');
 
     // Register admin event for AJAX event
     $('#mainContent,#pageContent').bind('simbioAJAXloaded', function(evt) {
