@@ -114,7 +114,7 @@ var ucsUpload = function(strUploadHandler, strData) {
     }
     jQuery.ajax({
         url: strUploadHandler,
-        type: 'POST',
+        type: 'post',
         data: strData,
         dataType: 'json',
         success: function(ajaxRespond) {

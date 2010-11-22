@@ -37,7 +37,7 @@ a {
     padding: 0;
 }
 
-#main-menu a.menu,#main-menu a.menu:hover {
+#main-menu a.mod-menu,#main-menu a.mod-menu:hover {
     display: block;
     padding: 10px;
     padding-left: 30px;
@@ -49,7 +49,7 @@ a {
     background-position: center left;
 }
 
-#main-menu a.menu:hover,#main-menu a.curr-module {
+#main-menu a.mod-menu:hover,#main-menu a.curr-module {
     color: #003380;
     background-color: #fff;
 }
@@ -178,14 +178,14 @@ a {
     cursor: s-resize;
 }
 
-.submenu {
+.mod-submenu {
     margin: 0;
     padding: 0;
     display: none;
     background: #ccc;
 }
 
-.submenu li a {
+.mod-submenu li a {
     margin-left: 17px;
     display: block;
     padding: 5px;
@@ -193,14 +193,15 @@ a {
     text-decoration: none;
     font-weight: bold;
     background: url(media/submenu_img.png) no-repeat center left;
+    text-shadow: #555;
 }
 
-.submenu li a:hover, .submenu li a.current {
+.mod-submenu li a:hover, .mod-submenu li a.current {
     color: #555;
     background: url(media/submenu_img2.png) no-repeat center left;
 }
 
-.submenu .submenu-head span {
+.mod-submenu .mod-submenu-head span {
     display: block;
     padding: 5px;
     margin-left: 10px;

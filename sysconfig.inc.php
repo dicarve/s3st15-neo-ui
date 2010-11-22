@@ -328,9 +328,7 @@ $sysconf['ucs']['auto_insert'] = false;
 /**
  * Peer to peer server config
  */
-$sysconf['p2pserver'][1] = array('uri' => 'http://192.168.23.12/senayan3-stable14', 'name' => 'Perpustakaannya Hendro');
-$sysconf['p2pserver'][2] = array('uri' => 'http://192.168.23.1/unicat/ucs', 'name' => 'Union Catalog');
-$sysconf['p2pserver'][3] = array('uri' => 'http://127.0.0.1/senayan3-stable15-jquery', 'name' => 'Katalog Sendiri');
+$sysconf['p2pserver'][3] = array('uri' => 'http://127.0.0.1/senayan3-stable15', 'name' => 'Own Catalog');
 
 /**
  * User and member login method

@@ -1,6 +1,6 @@
 /* GENERAL FONT DEFINITION */
 body {
-    font-family: FreeSans, arial, helvetica, sans;
+    font-family: Arial, helvetica, sans-serif;
     font-size: 11px;
     line-height: 170%;
     color: #666666;
@@ -19,47 +19,89 @@ a {
 }
 
 #header {
+    clear: both;
     width: 100%;
     height: 90px;
     background: #FFFFFF url(media/header2.jpg) no-repeat top right
 }
 
-#mainMenu {
+#main-menu {
+    clear: both;
+    float: left;
     width: 100%;
-    height: 28px;
-    background: url(media/bar_fill_menu.png) repeat-x bottom left;
+    background: #1e7605;
     font-weight: bold;
-    padding-top: 7px;
-}
-
-#menuList {
-    display: inline;
-    padding: 0;
     margin: 0;
-    list-style: none;
+    padding: 0;
 }
 
-#menuList li {
+#main-menu li {
     display: inline;
     margin: 0;
     padding: 0;
 }
 
-#menuList a.menu,a.menu:hover,a.menuCurrent {
-    padding: 11px;
+#main-menu li a.mod-menu,#main-menu li a.mod-menu:hover {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 10px;
+    padding-left: 25px;
     font-size: 11px;
     font-weight: bold;
-    color: #FFFFFF;
+    color: #fff;
     text-decoration: none;
+    background-repeat: no-repeat;
+    background-position: center left;
 }
 
-#menuList a.menu:hover,a.menuCurrent {
-    background: url(media/tri.png) no-repeat bottom center;
+#main-menu li a.mod-menu:hover,#main-menu li a.curr-module {
+    color: #ccc;
 }
 
-#sidepan {
-    width: 200px;
-    background: #CCCCCC;
+#main-menu .home {
+    background: url(media/menuicon/home.png);
+}
+
+#main-menu .opac {
+    background: url(media/menuicon/opac.png);
+}
+
+#main-menu .bibliography {
+    background: url(media/menuicon/biblio.png);
+}
+
+#main-menu .circulation {
+    background: url(media/menuicon/circ.png);
+}
+
+#main-menu .membership {
+    background: url(media/menuicon/membership.png);
+}
+
+#main-menu .system {
+    background: url(media/menuicon/system.png);
+}
+
+#main-menu .master_file {
+    background: url(media/menuicon/masterfile.png);
+}
+
+#main-menu .reporting {
+    background: url(media/menuicon/report.png);
+}
+
+#main-menu .stock_take {
+    background: url(media/menuicon/sstake.png);
+}
+
+#main-menu .serial_control {
+    background: url(media/menuicon/serial_control.png);
+}
+
+#main-menu .logout {
+    color: #f00;
+    background: url(media/menuicon/logout.png);
 }
 
 #mainContent {
@@ -71,7 +113,7 @@ a {
     text-align: center;
     clear: both;
     height: 31px;
-    background: url(media/bar_fill_menu.png) repeat-x bottom left;
+    background: #1e7605;
     margin: 0;
     padding-top: 9px;
 }
@@ -141,14 +183,40 @@ a {
     cursor: move;
 }
 
-.subMenuHeader {
+.mod-submenu {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 38px;
+    display: none;
+    background: #ccc;
+    width: 200px;
+    border: 1px solid #1e7605;
+}
+
+.mod-submenu li a {
+    margin-left: 5px;
+    display: block;
+    padding: 5px;
+    padding-left: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    background: url(media/submenu_img.png) no-repeat center left;
+    text-shadow: #777 0px 1px 1px;
+}
+
+.mod-submenu li a:hover, .mod-submenu li a.current {
+    color: #333;
+}
+
+.mod-submenu .mod-submenu-head span {
+    display: block;
+    padding: 5px;
+    margin-left: 0;
     font-weight: bold;
     font-size: 14px;
-    color: #FFFFFF;
-    background: url(media/section_bar_fill.png) no-repeat top left;
-    padding-top: 9px;
-    padding-left: 37px;
-    height: 31px;
+    color: #fff;
+    background: #1e7605;
 }
 
 .heading {
@@ -501,6 +569,10 @@ input:hover,textarea:hover,select:hover {
 
 .userGroupIcon {
     background-image: url(media/modules/user_group.png);
+}
+
+.serialIcon {
+    background-image: url(media/modules/serial_control.png);
 }
 
 .printIcon {

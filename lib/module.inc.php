@@ -78,17 +78,17 @@ class module extends simbio
                 $_mod_dir = $_module['path'];
                 if (stripos($_mod_dir, '.php') !== false) {
                     if ($_module['name'] == 'home') {
-                        $_menu .= '<li><a class="menu home curr-module notAJAX" title="'.$_module['desc'].'" href="'.$_module['path'].'">'.__($_formated_module_name).'</a>';
+                        $_menu .= '<li><a class="mod-menu home '.( !isset($_GET['mod'])?'curr-module':'' ).' notAJAX" title="'.$_module['desc'].'" href="'.$_module['path'].'">'.__($_formated_module_name).'</a>';
                         // sub-module
                         $_submenu_file = SENAYAN_BASE_DIR.'admin'.DIRECTORY_SEPARATOR.'default'.DIRECTORY_SEPARATOR.'submenu.php';
                         include $_submenu_file;
                         $_submenus = $menu;
-                        $_menu .= '<ul class="submenu '.$_module['name'].'-sub">';
+                        $_menu .= '<ul class="mod-submenu '.$_module['name'].'-sub">';
                             foreach ($_submenus as $_list) {
                                 if ($_list[0] == 'Header') {
-                                    $_menu .= '<li class="submenu-head"><span>'.$_list[1].'</span></li>';
+                                    $_menu .= '<li class="mod-submenu-head"><span>'.$_list[1].'</span></li>';
                                 } else {
-                                    $_menu .= '<li><a class="submenu-item" '
+                                    $_menu .= '<li><a class="mod-submenu-item" '
                                         .' href="'.$_list[1].'"'
                                         .' title="'.( isset($_list[2])?$_list[2]:$_list[0] ).'" href="#">'.$_list[0].'</a></li>';
                                 }
@@ -97,20 +97,20 @@ class module extends simbio
                         unset($menu);
                         $_menu .= '</li>';
                     } else {
-                        $_menu .= '<li><a class="menu '.$_module['name'].' notAJAX" title="'.$_module['desc'].'" href="'.$_module['path'].'">'.__($_formated_module_name).'</a></li>';
+                        $_menu .= '<li><a class="mod-menu '.$_module['name'].' notAJAX" title="'.$_module['desc'].'" href="'.$_module['path'].'">'.__($_formated_module_name).'</a></li>';
                     }
                 } else if (isset($_SESSION['priv'][$_module['path']]['r']) && $_SESSION['priv'][$_module['path']]['r'] && file_exists($this->modules_dir.$_mod_dir)) {
-                    $_menu .= '<li><a class="menu '.$_module['name'].( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?' curr-module':'' ).'" title="'.$_module['desc'].'" href="'.MODULES_WEB_ROOT_DIR.$_module['path'].'/index.php">'.__($_formated_module_name).'</a>';
+                    $_menu .= '<li><a class="mod-menu '.$_module['name'].( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?' curr-module':'' ).'" title="'.$_module['desc'].'" href="'.MODULES_WEB_ROOT_DIR.$_module['path'].'/index.php">'.__($_formated_module_name).'</a>';
                     // sub-module
                     $_submenu_file = MODULES_BASE_DIR.$_module['name'].DIRECTORY_SEPARATOR.'submenu.php';
                     include $_submenu_file;
                     $_submenus = $menu;
-                    $_menu .= '<ul class="submenu '.$_module['name'].'-sub">';
+                    $_menu .= '<ul class="mod-submenu '.$_module['name'].'-sub">';
                         foreach ($_submenus as $_list) {
                             if ($_list[0] == 'Header') {
-                                $_menu .= '<li class="submenu-head"><span>'.$_list[1].'</span></li>';
+                                $_menu .= '<li class="mod-submenu-head"><span>'.$_list[1].'</span></li>';
                             } else {
-                                $_menu .= '<li><a class="submenu-item" '
+                                $_menu .= '<li><a class="mod-submenu-item" '
                                     .' href="'.$_list[1].'"'
                                     .' title="'.( isset($_list[2])?$_list[2]:$_list[0] ).'" href="#">'.$_list[0].'</a></li>';
                             }
